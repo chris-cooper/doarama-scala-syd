@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
     <link rel="stylesheet" href="lib/font-awesome-4.0.3/css/font-awesome.min.css">
 
 		<!-- For syntax highlighting -->
@@ -37,6 +37,11 @@
     font-family: 'FontAwesome';
     font-style: normal;
     }
+    
+    td
+{
+text-align:center !important;
+}
     </style>
 
 		<!--[if lt IE 9]>
@@ -53,8 +58,9 @@
           <h1>Scala for Paragliders</h1>
           <h3>How an application built on Scala Play Framework is helping outdoor enthusiasts</h3>
           <p>
-            <small>A <a href="http://www.meetup.com/scalasyd/">ScalaSyd</a> presentation by <a href="https://github.com/chris-cooper">Chris Cooper</a> / <a href="mailto:chris.cooper@nicta.com.au">chris.cooper@nicta.com.au</a></small>
+            <small>A <a href="http://www.meetup.com/scalasyd/">ScalaSyd</a> presentation by <a href="https://github.com/chris-cooper">Chris Cooper</a></small>
           </p>
+          <img width="30%" height="auto" src="images/nicta_logo.png" alt="Image">
         </section>
         
         <section>
@@ -64,15 +70,15 @@
         
         <section>
           <h2>The work we're doing @ NICTA...</h2>
+            <small><a href="http://subspace.nicta.com.au">http://subspace.nicta.com.au</a></small>
           <img width="100%" height="auto" src="images/geothermal.jpg" alt="Image">
           <p>
-            <small><a href="http://subspace.nicta.com.au">http://subspace.nicta.com.au</a></small>
           </p>
         </section>
         
         <section>
-          <h1><a href="http://cesiumjs.org">cesiumjs.org</a></h1>
-          <h3>WebGL Virtual Globe and Map Engine</h3>
+          <h2><a href="http://cesiumjs.org">cesiumjs.org</a></h2>
+          <h4>WebGL Virtual Globe and Map Engine</h4>
           <img width="68%" height="auto" src="images/cesium.jpg" alt="Image"> <img width="29%" height="auto" src="images/everest.png" alt="Image">
         </section>
         
@@ -88,25 +94,66 @@
         </section>
         
         <section>
+          <h2>What is Doarama?</h2>
+          <br>
+          <p>
+                    <table class="reveal" style="table-layout: fixed;">
+                        <tbody>
+                            <tr>
+                                <td><i class="fa fa-cloud-upload"></i></td>
+                                <td><i class="fa fa-long-arrow-right"></i></td>
+                                <td><i class="fa fa-group"></i></td>
+                                <td><i class="fa fa-long-arrow-right"></i></td>
+                                <td><i class="fa fa-edit"></i></td>
+                                <td><i class="fa fa-long-arrow-right"></i></td>
+                                <td><i class="fa fa-share-square-o"></i></td>
+                                <td><i class="fa fa-long-arrow-right"></i></td>
+                                <td><i class="fa fa-comment-o"></i></td>
+                            <tr>
+                             <tr>
+                                <td><small>Upload<br>/<br>Live</small></td>
+                                <td></td>
+                                <td><small>Correlate</small></td>
+                                <td></td>
+                                <td><small>Tweak</small></td>
+                                <td></td>
+                                <td><small>Share</small></td>
+                                <td></td>
+                                <td><small>Comment</small></td>
+                            </tr>
+                      </tbody>
+                   </table>
+                   <br>
+                   Web | API
+          </p>
+        </section>
+        
+        <section>
+                            <table class="reveal" style="table-layout: fixed;">
+                        <tbody>
+        <tr><td>
           <h2><i class="fa fa-link"></i></h2>
           <p>
           What we have...
           <ul>
-            <li>Customisable virtual globe</li>
-            <li>Computer graphics experience</li>
+            <li class="fragment">Customisable virtual globe</li>
+            <li class="fragment">Years of CG experience</li>
+            <li class="fragment">Client side prototype</li>
           </ul>
           </p>
           <br>
+          </td><td>
+          <div class="fragment">
           <h2><i class="fa fa-unlink"></i></h2>
-          <p>
           What's missing...
+          </div>
           <ul>
-            <li>Web dev</li>
-            <li>Server</li>
-            <li>Database</li>
-            <li>Clue</li>
+            <li class="fragment">Web dev</li>
+            <li class="fragment">Server</li>
+            <li class="fragment">Database</li>
+            <li class="fragment">Clue</li>
           </ul>
-          </p>
+          </td></tr></tbody></table>
         </section>
         
         <section>
@@ -115,7 +162,7 @@
         
         <section>
           <img width="100%" height="auto" src="images/in-da-house.jpg" alt="Image">
-          <h3>@ NICTA</h3>
+          <h3>@ NICTA (at the time)</h3>
           <p>
           Sidney Shek / Clinton Freeman / Mark Hibberd / Eric Torreborre / Tony Morris
           </p>
@@ -147,7 +194,7 @@
       <section>
           <h2><a href="http://www.playframework.com/documentation/2.2.x/ProductionHeroku">Heroku</a></h2>
           <pre><code>$ git push heroku master</code></pre>
-          <p><small>dev -> stage -> production</small></p>
+          <p><small>dev  |  stage  |  production</small></p>
         </section>
         
         <section>
