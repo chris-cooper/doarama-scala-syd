@@ -58,12 +58,12 @@
         </section>
         
         <section>
-          <h2>The sports apps...</h1>
+          <h2>The sports apps...</h2>
           <img width="100%" height="auto" src="images/map-2d.jpg" alt="Image">
         </section>
         
         <section>
-          <h2>The work we're doing @ NICTA...</h1>
+          <h2>The work we're doing @ NICTA...</h2>
           <img width="100%" height="auto" src="images/geothermal.jpg" alt="Image">
           <p>
             <small><a href="http://subspace.nicta.com.au">http://subspace.nicta.com.au</a></small>
@@ -90,9 +90,10 @@
         <section>
           <h2><i class="fa fa-link"></i></h2>
           <p>
-          What's there...
+          What we have...
           <ul>
-            <li>Virtual Globe</li>
+            <li>Customisable virtual globe</li>
+            <li>Computer graphics experience</li>
           </ul>
           </p>
           <br>
@@ -132,18 +133,18 @@
             <li>Heroku</li>
           </ul>
         </section>
-        
-        <section>
-          <h2>Scala Play / PostgreSQL</h2>
-          <ul>
-            <li><a href="http://securesocial.ws">SecureSocial</a></li>
-            <li><a href="http://etorreborre.github.io/specs2/">Specs2</a></li>
-            <li><a href="http://www.playframework.com/documentation/2.2.x/ScalaAnorm">Anorm</a></li>
-            <li><a href="https://github.com/Rhinofly/play-s3">Rhinofly play-s3</a></li>
-          </ul>
-        </section>
 
-        <section>
+      <section>
+        <h2>Scala Play / PostgreSQL</h2>
+        <ul>
+          <li><a href="http://securesocial.ws">SecureSocial</a></li>
+          <li><a href="http://etorreborre.github.io/specs2/">Specs2</a></li>
+          <li><a href="http://www.playframework.com/documentation/2.2.x/ScalaAnorm">Anorm</a></li>
+          <li><a href="https://github.com/Rhinofly/play-s3">Rhinofly play-s3</a></li>
+        </ul>
+      </section>
+
+      <section>
           <h2><a href="http://www.playframework.com/documentation/2.2.x/ProductionHeroku">Heroku</a></h2>
           <pre><code>$ git push heroku master</code></pre>
           <p><small>dev -> stage -> production</small></p>
@@ -161,18 +162,92 @@
         
         <section>
           <h2>Stats</h2>
+          
+          <p>July 2013 -> March 2014 (now)</p>
+          
           <ul>
-            <li>Released July 2015</li>
             <li>200 to 500 unique hits / day</li>
             <li>5000 unique visitors</li>
             <li>7500 activities uploaded</li>
             <li>2100 users have uploaded</li>
-            <li>2 active API users</li>
+            <li>2 active API users embedding Doarama visualisations in their sites</li>
+            <li>Heaviest user of Cesium terrain</li>
           </ul>
         </section>
         
         <section>
-          <h2>Where to begin</h2>
+          <h3>Model...</h3>
+          <pre><code>
+  def listByUserId(user_id: Long, page: Int = 0, pageSize: Int = 10): Page[ActivityWithVisualisations] = {
+    val offset = pageSize * page
+
+    DB.withConnection { implicit connection =>
+
+      val items = SQL(
+        """
+          select * from activity 
+          left join activitytype on activity.activitytype_id = activitytype.id
+          where user_id = {user_id}
+          order by activity.id desc
+          limit {pageSize} offset {offset}
+        """).on(
+          'user_id -> user_id,
+          'pageSize -> pageSize,
+          'offset -> offset).as(Activity.withType2 *)
+      ...
+      
+    }
+  }
+
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>Controller...</h3>
+          <pre><code>
+  def list(page: Int) = SecuredAction { implicit request =>
+    val user = Users.getUser(request.user)
+    val activities = Activity.listByUserId(user.id, page)
+    Ok(views.html.activities(Some(user), activities))
+  }
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>View...</h3>
+          <pre><code>
+    <table class="table table-striped">
+    @activities.map { case activity =>
+  
+    <tr><td>
+    <div class="row">
+      <div class="col-xs-4">
+        <p><strong>@activity.label</strong><br>
+        <small>@activity.location</small><br>
+        <small>@activity.activityType.name</small></p>
+        ...
+      </div>
+    </div></td></tr>
+    </table>
+    
+    }
+          </code></pre>
+        </section>
+        
+        <section>
+          <h3>Test...</h3>
+          <pre><code>
+    "create an activity" in {
+      val requestStr = "{...}"
+      val request = FakeRequest(POST, "/api/0.2/livetrack/activity", requestHeader, Json.parse(requestStr))
+      val result = route(request).get
+      status(result) must equalTo(OK)
+      val resultJson = Json.parse(contentAsString(result))
+      resultJson.asOpt[IdResult] must beSome[IdResult]
+        </code></pre>
+        </section>        
+        <section>
+          <h2>Where to begin for YOUR app...</h2>
           <ul>
             <li><a href="http://cesiumjs.org/Cesium/Apps/Sandcastle/">Cesium Sandcastle</a></li>
             <li><a href="http://www.playframework.com/documentation/2.2.x/ScalaTodoList">Play ScalaTodoList</a></li>
